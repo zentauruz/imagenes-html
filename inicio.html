@@ -1,0 +1,1938 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZENTAURUZ — Trading Technology</title>
+<link rel="icon" type="image/png" href="https://github.com/zentauruz/imagenes-html/blob/main/ICONOFCLARO.png?raw=true">
+<meta property="og:image" content="https://github.com/zentauruz/imagenes-html/blob/main/ICONOFCLARO.png?raw=true">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#07050c;
+    --obsidian:#0d0b1a;
+    --panel:#15101f;
+    --panel-2:#1b1428;
+    --hairline:#2a2138;
+    --violet-900:#2a0f57;
+    --violet-700:#5b21b6;
+    --violet-500:#8b5cf6;
+    --violet-glow:#a78bfa;
+    --lavender-100:#ede9fe;
+    --lavender-50:#f3f4ff;
+    --white:#f8f6fb;
+    --gray:#5f5a6c;   /* texto sobre fondo blanco */
+    --gray-soft:#64748b; /* texto secundario sobre fondo oscuro */
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--void);
+    color:var(--white);
+    font-family:'Raleway',sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:var(--violet-500); color:#fff;}
+
+  h1,h2,h3,.display{
+    font-family:'Poppins',sans-serif;
+    letter-spacing:0.01em;
+    font-weight:600;
+  }
+  .eyebrow{
+    font-family:'Poppins',sans-serif;
+    font-size:0.72rem;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    color:var(--violet-glow);
+    display:flex;
+    align-items:center;
+    gap:0.7rem;
+  }
+  .eyebrow::before{
+    content:'';
+    width:22px;height:1px;
+    background:var(--violet-glow);
+    display:inline-block;
+  }
+
+  .container{max-width:1180px; margin:0 auto; padding:0 32px;}
+  section{position:relative; padding:140px 0;}
+  @media (max-width:720px){ section{padding:88px 0;} .container{padding:0 22px;} }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:24px;
+    padding:22px 32px;
+    backdrop-filter:blur(14px);
+    background:linear-gradient(to bottom, rgba(7,5,12,0.85), rgba(7,5,12,0));
+  }
+  .nav-right{ display:flex; align-items:center; gap:38px; }
+  .brand{
+    display:flex; align-items:center; gap:12px;
+    font-family:'Poppins',sans-serif; font-weight:700; font-size:1.15rem;
+    letter-spacing:0.14em;
+    flex-shrink:0;
+  }
+  .brand-word .accent{color:var(--white);}
+  .brand-text{ display:flex; flex-direction:column; gap:1px; line-height:1.1; }
+  .brand-sub{
+    font-family:'Raleway',sans-serif; font-weight:500; font-size:0.56rem;
+    letter-spacing:0.24em; color:var(--violet-glow); text-transform:uppercase;
+  }
+  @media (max-width:520px){ .brand-sub{ display:none; } }
+  .brand-logo{
+    height:44px; width:auto; display:block;
+    filter:drop-shadow(0 0 10px rgba(139,92,246,0.55));
+    transition:filter .3s;
+  }
+  .brand:hover .brand-logo{ filter:drop-shadow(0 0 18px rgba(167,139,250,0.85)); }
+  @media (max-width:520px){
+    .brand{ font-size:0.92rem; gap:8px; }
+    .brand-logo{ height:34px; }
+  }
+  .navlinks{display:flex; gap:38px; font-size:0.86rem; letter-spacing:0.03em;}
+  .navlinks a{opacity:0.75; transition:opacity .25s;}
+  .navlinks a:hover{opacity:1;}
+  .nav-cta{
+    font-family:'Poppins',sans-serif; font-size:0.78rem;
+    border:1px solid var(--violet-500); padding:9px 20px; border-radius:2px;
+    transition:background .25s, color .25s;
+  }
+  .nav-cta:hover{background:var(--violet-500); color:#0e0a18;}
+  .navlinks, .nav-cta{white-space:nowrap;}
+
+  /* ---------- Menú móvil / tablet ---------- */
+  .nav-toggle{
+    display:none; flex-direction:column; justify-content:center; gap:5px;
+    width:30px; height:30px; background:none; border:none; cursor:pointer; flex-shrink:0;
+  }
+  .nav-toggle span{ display:block; width:100%; height:2px; background:var(--white); transition:transform .3s, opacity .3s; }
+  .nav-toggle.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2){ opacity:0; }
+  .nav-toggle.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+  @media (max-width:860px){
+    nav{ padding:18px 22px; }
+    .nav-toggle{ display:flex; }
+    .nav-right{
+      position:fixed; top:0; right:0; height:100vh; width:min(78vw, 320px);
+      background:var(--obsidian); border-left:1px solid var(--hairline);
+      flex-direction:column; align-items:flex-start; justify-content:flex-start;
+      gap:0; padding:100px 32px 32px;
+      transform:translateX(100%); transition:transform .35s ease;
+      box-shadow:-20px 0 50px rgba(0,0,0,0.4);
+    }
+    .nav-right.open{ transform:translateX(0); }
+    .navlinks{ flex-direction:column; gap:26px; font-size:1rem; margin-bottom:34px; }
+    .nav-cta{ width:100%; text-align:center; }
+    body.nav-open{ overflow:hidden; }
+  }
+  .nav-overlay{
+    display:none; position:fixed; inset:0; z-index:99;
+    background:rgba(7,5,12,0.6); backdrop-filter:blur(2px);
+  }
+  .nav-overlay.open{ display:block; }
+
+  /* ---------- HERO / constelación ---------- */
+  .hero{
+    min-height:100svh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding-top:120px;
+    position:relative;
+  }
+  #constellation{position:absolute; inset:0; width:100%; height:100%; z-index:0;}
+  .hero-content{position:relative; z-index:2; max-width:900px;}
+  .hero-logo{
+    width:180px; height:auto; margin:0 auto 26px; display:block;
+    filter:drop-shadow(0 0 26px rgba(139,92,246,0.5));
+  }
+  @media (max-width:520px){ .hero-logo{ width:140px; } }
+  .hero .eyebrow{justify-content:center; margin-bottom:26px;}
+  .hero .eyebrow::before{display:none;}
+  h1.hero-title{
+    font-size:clamp(2.6rem, 6vw, 5rem);
+    line-height:1.05;
+    background:linear-gradient(180deg, #ffffff 20%, #cbb3f5 65%, #8b5cf6 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    margin-bottom:26px;
+  }
+  .hero-sub{
+    font-size:1.08rem; line-height:1.7; color:var(--gray-soft);
+    max-width:620px; margin:0 auto 44px;
+    font-weight:300;
+  }
+  .hero-actions{display:flex; gap:18px; justify-content:center; flex-wrap:wrap;}
+  .btn-primary, .btn-ghost{
+    font-family:'Poppins',sans-serif; font-size:0.85rem;
+    padding:16px 34px; border-radius:2px; letter-spacing:0.02em;
+    transition:transform .25s, box-shadow .25s, background .25s;
+    display:inline-block;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg, var(--violet-700), var(--violet-500));
+    box-shadow:0 0 0 rgba(139,92,246,0);
+  }
+  .btn-primary:hover{ box-shadow:0 0 34px rgba(139,92,246,0.55); transform:translateY(-2px); }
+  .btn-ghost{ border:1px solid var(--hairline); color:var(--gray-soft); }
+  .btn-ghost:hover{ border-color:var(--violet-500); color:var(--white); }
+
+  .scroll-cue{
+    position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
+    font-family:'Poppins',sans-serif; font-size:0.68rem; letter-spacing:0.2em;
+    color:var(--gray-soft); z-index:2;
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+  }
+  .scroll-cue .line{width:1px; height:34px; background:linear-gradient(var(--violet-glow), transparent); animation:pulse 2.2s infinite;}
+  @keyframes pulse{ 0%,100%{opacity:.25;} 50%{opacity:1;} }
+
+  /* ---------- MANIFIESTO ---------- */
+  .manifesto{ border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline); background:var(--obsidian); }
+  .manifesto-grid{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:70px; align-items:start; }
+  @media (max-width:860px){ .manifesto-grid{grid-template-columns:1fr; gap:34px;} }
+  .manifesto h2{ font-size:clamp(1.8rem, 3.4vw, 2.6rem); line-height:1.25; }
+  .manifesto-body p{ color:var(--gray-soft); font-weight:300; line-height:1.85; margin-bottom:20px; font-size:1.02rem; }
+  .manifesto-body strong{ color:var(--white); font-weight:600; }
+
+  /* ---------- PILARES (3 columnas) ---------- */
+  .pilares{ background:var(--void); }
+  .pilares-head{ text-align:center; max-width:640px; margin:0 auto 70px; }
+  .pilares-head h2{ font-size:clamp(1.9rem, 3.6vw, 2.7rem); margin-top:20px; }
+  .pilar-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:1px; background:var(--hairline); border:1px solid var(--hairline); }
+  @media (max-width:900px){ .pilar-grid{grid-template-columns:1fr;} }
+  .pilar{ background:var(--panel); padding:44px 38px; transition:background .3s; position:relative; }
+  .pilar:hover{ background:var(--panel-2); }
+  .pilar-icon{ width:42px; height:42px; margin-bottom:26px; }
+  .pilar h3{ font-size:1.2rem; margin-bottom:14px; letter-spacing:0.02em; }
+  .pilar p{ color:var(--gray-soft); font-size:0.94rem; line-height:1.75; font-weight:300; }
+
+  /* ---------- CURSO EA MT5 (timeline real) ---------- */
+  .curso{ background:var(--obsidian); border-top:1px solid var(--hairline); }
+  .curso-top{ display:flex; justify-content:space-between; align-items:flex-end; gap:30px; margin-bottom:70px; flex-wrap:wrap; }
+  .curso-top h2{ font-size:clamp(1.9rem, 3.6vw, 2.7rem); max-width:560px; margin-top:20px; }
+  .curso-top p{ color:var(--gray-soft); max-width:340px; font-weight:300; line-height:1.7; font-size:0.95rem; }
+
+  .accordion-item{ border-top:1px solid var(--hairline); }
+  .accordion-item:last-child{ border-bottom:1px solid var(--hairline); }
+  .accordion-header{
+    width:100%; display:grid; grid-template-columns:56px 1fr auto; gap:28px; align-items:center;
+    padding:32px 0; background:none; border:none; cursor:pointer; text-align:left; color:inherit; font:inherit;
+  }
+  .accordion-header:hover .modulo-num{ color:#fff; text-shadow:0 0 12px var(--violet-glow); }
+  .modulo-num{ font-family:'Poppins',sans-serif; color:var(--violet-glow); font-size:0.95rem; transition:color .25s, text-shadow .25s; }
+  .modulo-heading{ display:flex; flex-direction:column; gap:8px; }
+  .accordion-header h3{ font-size:1.15rem; font-family:'Raleway',sans-serif; font-weight:700; }
+  .modulo-time{
+    display:inline-flex; align-items:center; gap:6px; width:fit-content;
+    font-family:'Poppins',sans-serif; font-size:0.68rem; letter-spacing:0.05em;
+    color:var(--gray-soft); border:1px solid var(--hairline); border-radius:20px; padding:4px 12px;
+  }
+  .modulo-time svg{ width:11px; height:11px; stroke:var(--violet-glow); }
+  .modulo-cta{
+    display:flex; align-items:center; gap:12px; flex-shrink:0;
+    font-family:'Poppins',sans-serif; font-size:0.72rem; letter-spacing:0.06em;
+    color:var(--violet-glow); border:1px solid var(--violet-700); border-radius:20px; padding:9px 16px;
+    transition:background .25s, color .25s, border-color .25s;
+  }
+  .accordion-header:hover .modulo-cta{ background:var(--violet-500); color:#0e0a18; border-color:var(--violet-500); }
+  .accordion-chevron{ width:14px; height:14px; position:relative; flex-shrink:0; }
+  .accordion-chevron::before, .accordion-chevron::after{
+    content:''; position:absolute; background:currentColor; border-radius:2px; transition:transform .35s ease, opacity .35s ease;
+  }
+  .accordion-chevron::before{ width:14px; height:2px; top:6px; left:0; }
+  .accordion-chevron::after{ width:2px; height:14px; top:0; left:6px; }
+  .accordion-item.open .accordion-chevron::after{ transform:rotate(90deg); opacity:0; }
+  .accordion-item.open .modulo-cta{ background:var(--violet-500); color:#0e0a18; border-color:var(--violet-500); }
+  .accordion-panel{ max-height:0; overflow:hidden; transition:max-height .55s cubic-bezier(.4,0,.2,1); }
+  .accordion-panel-inner{ padding:0 0 40px 84px; }
+  @media (max-width:720px){
+    .accordion-panel-inner{ padding-left:0; }
+    .accordion-header{ grid-template-columns:1fr auto; grid-template-areas:"num cta" "heading heading"; row-gap:14px; }
+    .modulo-num{ grid-area:num; }
+    .modulo-cta{ grid-area:cta; }
+    .modulo-heading{ grid-area:heading; }
+  }
+  .accordion-panel-inner p{ color:var(--gray-soft); font-weight:300; line-height:1.8; font-size:0.95rem; max-width:640px; margin-bottom:22px; }
+  .modulo-tags{ display:flex; gap:10px; margin-bottom:26px; flex-wrap:wrap; }
+  .modulo-tags span{
+    font-family:'Poppins',sans-serif; font-size:0.68rem; letter-spacing:0.04em;
+    border:1px solid var(--hairline); padding:5px 12px; border-radius:20px; color:var(--gray-soft);
+  }
+  .modulo-video{
+    position:relative; width:100%; max-width:640px; aspect-ratio:16/9;
+    background:var(--panel); border:1px solid var(--hairline); border-radius:4px; overflow:hidden;
+    box-shadow:0 0 0 rgba(139,92,246,0); transition:box-shadow .5s;
+  }
+  .accordion-item.open .modulo-video{ box-shadow:0 0 44px rgba(139,92,246,0.28); }
+  .modulo-video iframe{ width:100%; height:100%; border:0; display:block; }
+
+  /* ---------- divisor con luz ---------- */
+  .divider{ height:1px; position:relative; overflow:hidden; background:var(--hairline); }
+  .divider::after{
+    content:''; position:absolute; top:0; left:-25%; width:25%; height:100%;
+    background:linear-gradient(90deg, transparent, var(--violet-glow), transparent);
+    filter:blur(1px);
+    animation:sweep 7s ease-in-out infinite;
+  }
+  @keyframes sweep{ 0%{left:-25%;} 45%,100%{left:100%;} }
+  @media (prefers-reduced-motion: reduce){ .divider::after{ animation:none; left:40%; } }
+
+  /* ---------- PSICOTRADING (meditaciones / musica ia) ---------- */
+  .musica{
+    background:linear-gradient(180deg, var(--void) 0%, #120a22 100%);
+    position:relative; overflow:hidden;
+  }
+  .musica-grid{ display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center; }
+  @media (max-width:860px){ .musica-grid{grid-template-columns:1fr;} }
+  .musica h2{ font-size:clamp(1.9rem, 3.6vw, 2.7rem); margin:20px 0 22px; }
+  .musica p.desc{ color:var(--gray-soft); font-weight:300; line-height:1.8; margin-bottom:30px; }
+  .track-list{ display:flex; flex-direction:column; gap:2px; }
+  .track{
+    display:flex; align-items:center; gap:18px; padding:16px 20px;
+    background:var(--panel); border:1px solid var(--hairline); transition:background .25s;
+  }
+  .track:hover{ background:var(--panel-2); }
+  .track-play{
+    width:34px; height:34px; border-radius:50%; border:1px solid var(--violet-500);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .track-play svg{ width:11px; height:11px; fill:var(--violet-glow); }
+  .track-name{ font-size:0.92rem; font-weight:600; }
+  .track-tag{ font-family:'Poppins',sans-serif; font-size:0.68rem; color:var(--gray-soft); }
+  .track-bars{ display:flex; gap:3px; align-items:flex-end; height:20px; }
+  .track-bars span{ width:3px; background:var(--violet-500); animation:eq 1.1s ease-in-out infinite; animation-play-state:paused; opacity:.4; transition:opacity .25s; transform-origin:bottom; }
+  .track-bars span:nth-child(1){height:40%; animation-delay:0s;}
+  .track-bars span:nth-child(2){height:100%; animation-delay:.15s;}
+  .track-bars span:nth-child(3){height:65%; animation-delay:.3s;}
+  .track-bars span:nth-child(4){height:85%; animation-delay:.45s;}
+  @keyframes eq{ 0%,100%{transform:scaleY(0.4);} 50%{transform:scaleY(1);} }
+  .track.is-playing .track-bars span{ animation-play-state:running; opacity:1; }
+  .track-play svg.icon-pause{ display:none; }
+  .track.is-playing .track-play svg.icon-play{ display:none; }
+  .track.is-playing .track-play svg.icon-pause{ display:block; }
+  .track.is-playing .track-play{ border-color:var(--violet-glow); box-shadow:0 0 16px rgba(139,92,246,0.55); }
+  .track{ flex-wrap:wrap; }
+  .track-info{ display:flex; flex-direction:column; gap:2px; }
+  .track-actions{ margin-left:auto; display:flex; align-items:center; gap:18px; }
+  .track-video-btn{
+    font-family:'Poppins',sans-serif; font-size:0.68rem; letter-spacing:0.04em;
+    border:1px solid var(--hairline); padding:8px 14px; border-radius:20px; color:var(--gray-soft);
+    transition:border-color .25s, color .25s; white-space:nowrap;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .track-video-btn svg{ width:12px; height:12px; stroke:currentColor; flex-shrink:0; }
+  .track-video-btn:hover{ border-color:var(--violet-500); color:var(--white); }
+  .musica-cta-wrap{ margin-top:8px; }
+  .musica-intro-desc{ color:var(--gray-soft); font-weight:300; line-height:1.8; margin-bottom:30px; font-size:1.02rem; max-width:520px; }
+
+  .waveform{ position:relative; height:220px; }
+  .waveform svg{ width:100%; height:100%; }
+
+  /* ---------- Sub-bloques de la página Psicotrading (meditaciones / canciones) ---------- */
+  .psico-block{ margin-bottom:70px; }
+  .psico-block:last-child{ margin-bottom:0; }
+  .psico-block-head{ max-width:680px; margin-bottom:34px; }
+  .psico-block-head .eyebrow{ margin-bottom:14px; }
+  .psico-block-head h3{ font-size:clamp(1.4rem, 2.6vw, 1.9rem); margin-bottom:12px; }
+  .psico-block-head p{ color:var(--gray-soft); font-weight:300; line-height:1.75; font-size:0.96rem; }
+  .psico-video-wrap{
+    width:100%; max-width:720px; aspect-ratio:16/9;
+    background:var(--panel); border:1px solid var(--hairline); border-radius:6px; overflow:hidden;
+    margin-bottom:30px;
+  }
+  .psico-video-wrap iframe{ width:100%; height:100%; border:0; display:block; }
+  .psico-block-divider{ height:1px; background:var(--hairline); margin:60px 0; }
+
+  /* ---------- RECONOCIMIENTO / RESULTADOS ---------- */
+  .resultados{ background:var(--obsidian); border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline); }
+  .stat-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--hairline); border:1px solid var(--hairline); }
+  @media (max-width:800px){ .stat-grid{grid-template-columns:repeat(2,1fr);} }
+  .stat{ background:var(--void); padding:44px 30px; text-align:center; }
+  .stat b{ font-family:'Poppins',sans-serif; font-size:2.2rem; display:block; margin-bottom:10px;
+    background:linear-gradient(135deg,#fff,var(--violet-glow)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .stat span{ font-family:'Poppins',sans-serif; font-size:0.7rem; letter-spacing:0.08em; color:var(--gray-soft); text-transform:uppercase; }
+
+  /* ---------- PRODUCTOS (teaser en inicio) ---------- */
+  .productos{ background:var(--void); border-top:1px solid var(--hairline); }
+
+  /* ---------- PÁGINA PRODUCTOS COMPLETA (fichas técnicas de EAs) ---------- */
+  .prod-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:1px; background:var(--hairline); border:1px solid var(--hairline); margin-bottom:70px; }
+  @media (max-width:900px){ .prod-grid{grid-template-columns:1fr;} }
+  .prod-card{
+    background:var(--panel); padding:40px 34px; display:flex; flex-direction:column; gap:14px;
+    transition:background .3s; cursor:pointer; position:relative;
+  }
+  .prod-card:hover{ background:var(--panel-2); }
+  .prod-tag{
+    align-self:flex-start; font-family:'Poppins',sans-serif; font-size:0.66rem; letter-spacing:0.06em;
+    text-transform:uppercase; color:var(--violet-glow); border:1px solid rgba(167,139,250,0.4);
+    padding:5px 12px; border-radius:20px; font-weight:600;
+  }
+  .prod-card h3{ font-size:1.25rem; margin-top:2px; }
+  .prod-card p{ color:var(--gray-soft); font-size:0.92rem; line-height:1.7; font-weight:300; flex-grow:1; }
+  .prod-cta{
+    margin-top:6px; font-family:'Poppins',sans-serif; font-size:0.78rem; font-weight:600;
+    color:var(--violet-glow); display:flex; align-items:center; gap:8px;
+  }
+  .prod-cta svg{ width:14px; height:14px; transition:transform .2s ease; }
+  .prod-card:hover .prod-cta svg{ transform:translateX(4px); }
+
+  .prod-foot{ text-align:center; }
+  .prod-foot p{ color:var(--gray-soft); font-weight:300; font-size:0.94rem; max-width:520px; margin:0 auto 26px; line-height:1.7; }
+
+  /* overlay / ficha técnica */
+  .prod-overlay{
+    position:fixed; inset:0; z-index:200;
+    background:rgba(5,3,9,0.82); backdrop-filter:blur(6px);
+    display:none; align-items:flex-start; justify-content:center;
+    padding:9vh 4vw 5vh; overflow-y:auto;
+  }
+  .prod-overlay.open{ display:flex; }
+  .prod-panel{
+    background:linear-gradient(180deg, var(--panel), var(--panel-2));
+    border:1px solid var(--hairline); border-radius:14px;
+    max-width:760px; width:100%; padding:0 0 34px; position:relative;
+    box-shadow:0 30px 80px rgba(0,0,0,0.6);
+    animation:prodPop .22s ease;
+  }
+  @keyframes prodPop{ from{opacity:0; transform:translateY(14px) scale(.98);} to{opacity:1; transform:none;} }
+  .prod-panel-head{
+    padding:30px 34px 20px; border-bottom:1px solid var(--hairline);
+    display:flex; justify-content:space-between; align-items:flex-start; gap:14px;
+  }
+  .prod-panel-head h2{ margin:8px 0 0; font-size:1.5rem; }
+  .prod-close{
+    background:var(--void); border:1px solid var(--hairline); color:var(--gray-soft);
+    width:34px; height:34px; border-radius:10px; font-size:16px; cursor:pointer; flex-shrink:0;
+    font-family:'Poppins',sans-serif;
+  }
+  .prod-close:hover{ color:var(--white); border-color:var(--violet-500); }
+  .prod-panel-body{ padding:26px 34px 0; }
+  .prod-panel-body h4{
+    color:var(--violet-glow); font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase;
+    margin:26px 0 10px; font-weight:700; font-family:'Poppins',sans-serif;
+  }
+  .prod-panel-body p{ color:var(--gray-soft); font-size:0.94rem; line-height:1.7; font-weight:300; margin:0 0 4px; }
+  .prod-panel-body ul{ margin:6px 0 0; padding-left:18px; color:var(--gray-soft); font-size:0.94rem; line-height:1.75; font-weight:300; }
+  .prod-panel-body ul li{ margin-bottom:5px; }
+
+  .prod-stats-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(115px,1fr)); gap:1px; background:var(--hairline); border:1px solid var(--hairline); margin-top:14px; }
+  .prod-stat{ background:var(--void); padding:16px 10px; text-align:center; }
+  .prod-stat b{ display:block; font-family:'Poppins',sans-serif; font-size:1.15rem; color:var(--white); margin-bottom:4px; }
+  .prod-stat span{ font-family:'Poppins',sans-serif; font-size:0.6rem; color:var(--gray-soft); text-transform:uppercase; letter-spacing:0.05em; }
+
+  .prod-chart-wrap{ background:var(--void); border:1px solid var(--hairline); border-radius:8px; padding:16px 10px 6px; margin-top:8px; }
+  .prod-chart-wrap svg{ width:100%; height:auto; display:block; }
+  .prod-chart-caption{ color:var(--gray-soft); font-size:0.7rem; text-align:center; margin-top:8px; font-weight:300; }
+
+  .prod-join-box{
+    margin:30px 0 0;
+    background:linear-gradient(135deg, rgba(139,92,246,0.16), rgba(139,92,246,0.02));
+    border:1px solid rgba(139,92,246,0.35); border-radius:10px;
+    padding:26px 24px; text-align:center;
+  }
+  .prod-join-box p{ color:var(--white); font-size:0.95rem; font-weight:400; margin:0 0 16px; }
+  .prod-join-box .btn-primary{ border:none; cursor:pointer; font-family:'Poppins',sans-serif; }
+
+  /* ---------- CTA / UNIRME ---------- */
+  .cta{ text-align:center; position:relative; }
+  .cta-inner{ max-width:680px; margin:0 auto; }
+  .cta h2{ font-size:clamp(2rem, 4.4vw, 3.2rem); margin:22px 0 24px; line-height:1.2; }
+  .cta p{ color:var(--gray-soft); font-weight:300; margin-bottom:44px; font-size:1.02rem; line-height:1.7; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ border-top:1px solid var(--hairline); padding:56px 0 34px; background:var(--void); }
+  .footer-grid{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px; margin-bottom:40px; }
+  .footer-brand{ font-family:'Poppins',sans-serif; font-size:1.05rem; letter-spacing:0.12em; }
+  .footer-tagline{
+    font-family:'Raleway',sans-serif; font-size:0.72rem; letter-spacing:0.1em;
+    color:var(--gray-soft); text-transform:uppercase; margin-top:6px;
+  }
+  .footer-tagline span{ color:var(--violet-glow); }
+  .footer-links{ display:flex; gap:30px; font-size:0.85rem; color:var(--gray-soft); flex-wrap:wrap; }
+  .footer-links a:hover{ color:var(--white); }
+  .footer-bottom{ font-family:'Poppins',sans-serif; font-size:0.7rem; color:var(--gray-soft); text-align:center; border-top:1px solid var(--hairline); padding-top:28px; }
+
+  /* utilidades */
+  .fade-in{ opacity:0; transform:translateY(26px); transition:opacity .8s ease, transform .8s ease; }
+  .fade-in.visible{ opacity:1; transform:translateY(0); }
+
+  /* ---------- PÁGINAS (inicio / curso / biblioteca) ---------- */
+  .page{ display:none; }
+  .page.active{ display:block; }
+  .navlinks a.active{ opacity:1; color:var(--violet-glow); }
+
+  /* ---------- TEASER de curso en inicio ---------- */
+  .teaser-steps{ display:flex; flex-direction:column; margin-bottom:56px; }
+  .teaser-step{
+    display:grid; grid-template-columns:56px 1fr; gap:28px; align-items:start;
+    padding:22px 0; border-top:1px solid var(--hairline);
+  }
+  .teaser-step:last-child{ border-bottom:1px solid var(--hairline); }
+  .teaser-step .modulo-num{ font-size:0.95rem; padding-top:2px; }
+  .teaser-step h4{ font-family:'Raleway',sans-serif; font-size:1.02rem; font-weight:700; margin-bottom:4px; }
+  .teaser-step p{ color:var(--gray-soft); font-size:0.9rem; font-weight:300; line-height:1.6; }
+  .teaser-cta-wrap{ text-align:center; }
+  @media (max-width:760px){
+    .teaser-step{
+      grid-template-columns:1fr;
+      grid-template-areas:none;
+      row-gap:6px;
+    }
+    .teaser-step .modulo-num{ grid-area:auto; display:inline-block; }
+  }
+
+  /* ---------- Encabezado de sub-página ---------- */
+  .page-header{
+    display:flex; align-items:center; justify-content:space-between; gap:20px;
+    flex-wrap:wrap; margin-bottom:16px;
+  }
+  .back-link{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Poppins',sans-serif; font-size:0.76rem; letter-spacing:0.05em;
+    color:var(--gray-soft); transition:color .25s;
+  }
+  .back-link:hover{ color:var(--violet-glow); }
+  .back-link svg{ width:13px; height:13px; }
+
+  /* ---------- PÁGINA: REGISTRO / ÚNETE ---------- */
+  #page-registro{ background:var(--void); }
+  #page-registro .registro-wrap{ max-width:640px; margin:0 auto; padding:0 24px 100px; position:relative; z-index:2; }
+  #page-registro .glow-orb{
+    position:absolute; border-radius:50%; filter:blur(90px); z-index:0; pointer-events:none;
+  }
+  #page-registro .glow-orb.one{ width:420px; height:420px; top:-40px; left:-140px; background:radial-gradient(circle, rgba(139,92,246,0.35), transparent 70%); }
+  #page-registro .glow-orb.two{ width:380px; height:380px; bottom:0; right:-120px; background:radial-gradient(circle, rgba(91,33,182,0.3), transparent 70%); }
+
+  #page-registro .brand-mark{ display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:30px; }
+  #page-registro .brand-mark img{ height:48px; width:auto; filter:drop-shadow(0 0 16px rgba(139,92,246,0.6)); }
+  #page-registro .brand-mark span{ font-family:'Poppins',sans-serif; font-weight:700; font-size:1.2rem; letter-spacing:0.16em; }
+
+  #page-registro .view{ width:100%; }
+  #page-registro .view.hidden{ display:none; }
+
+  #page-registro .form-head{ text-align:center; margin-bottom:38px; }
+  #page-registro .form-head h1{
+    font-size:clamp(1.8rem, 5.6vw, 2.6rem); line-height:1.18; margin:20px 0 18px;
+    background:linear-gradient(180deg, #ffffff 15%, #cbb3f5 60%, #8b5cf6 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    font-family:'Poppins',sans-serif;
+  }
+  #page-registro .form-head p{ color:var(--gray-soft); font-weight:300; font-size:0.98rem; line-height:1.75; max-width:480px; margin:0 auto; }
+
+  #page-registro .benefits{ display:flex; flex-direction:column; gap:12px; margin:30px auto 0; max-width:460px; }
+  #page-registro .benefit{
+    display:flex; align-items:flex-start; gap:12px;
+    font-size:0.86rem; color:var(--gray-soft); font-weight:300; line-height:1.55;
+    background:var(--panel); border:1px solid var(--hairline); border-radius:6px; padding:13px 16px;
+    text-align:left;
+  }
+  #page-registro .benefit svg{ width:16px; height:16px; stroke:var(--violet-glow); flex-shrink:0; margin-top:2px; }
+  #page-registro .benefit strong{ color:var(--white); font-weight:600; }
+
+  #page-registro form{
+    margin-top:40px;
+    background:linear-gradient(180deg, var(--panel), var(--panel-2));
+    border:1px solid var(--hairline);
+    border-radius:10px;
+    padding:38px 30px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,0.4);
+  }
+  #page-registro form::before{
+    content:''; position:absolute; top:-1px; left:10%; right:10%; height:1px;
+    background:linear-gradient(90deg, transparent, var(--violet-glow), transparent);
+    opacity:0.7;
+  }
+  @media (max-width:520px){ #page-registro form{ padding:28px 20px; } }
+
+  #page-registro .field{ margin-bottom:22px; }
+  #page-registro .field label{
+    display:block; font-family:'Poppins',sans-serif; font-size:0.7rem;
+    letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-soft); margin-bottom:9px;
+  }
+  #page-registro .field label .opt{ text-transform:none; letter-spacing:0; opacity:0.6; }
+  #page-registro .field label .req{ color:var(--violet-glow); }
+
+  #page-registro input[type="text"], #page-registro input[type="email"], #page-registro input[type="tel"]{
+    width:100%;
+    background:var(--void);
+    border:1px solid var(--hairline);
+    border-radius:5px;
+    padding:14px 16px;
+    color:var(--white);
+    font-family:'Raleway',sans-serif;
+    font-size:0.95rem;
+    transition:border-color .25s, box-shadow .25s;
+  }
+  #page-registro input::placeholder{ color:#544e63; }
+  #page-registro input:focus{ outline:none; border-color:var(--violet-500); box-shadow:0 0 0 3px rgba(139,92,246,0.18); }
+  #page-registro input:invalid:not(:placeholder-shown){ border-color:#f0a6a6; }
+
+  #page-registro .phone-row{ display:flex; gap:10px; }
+  #page-registro .phone-row select{
+    flex:0 0 132px;
+    background:var(--void);
+    border:1px solid var(--hairline);
+    border-radius:5px;
+    padding:14px 10px;
+    color:var(--white);
+    font-family:'Raleway',sans-serif;
+    font-size:0.88rem;
+    cursor:pointer;
+    transition:border-color .25s, box-shadow .25s;
+    appearance:none;
+    -webkit-appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>");
+    background-repeat:no-repeat;
+    background-position:right 8px center;
+    background-size:16px;
+    padding-right:28px;
+  }
+  #page-registro .phone-row select:focus{ outline:none; border-color:var(--violet-500); box-shadow:0 0 0 3px rgba(139,92,246,0.18); }
+  #page-registro .phone-row input{ flex:1; min-width:0; }
+  @media (max-width:420px){
+    #page-registro .phone-row{ flex-direction:column; }
+    #page-registro .phone-row select{ flex:1; }
+  }
+
+  #page-registro .policy-field{ display:flex; align-items:flex-start; gap:12px; margin:28px 0 30px; }
+  #page-registro .policy-field input[type="checkbox"]{
+    appearance:none; -webkit-appearance:none;
+    width:20px; height:20px; flex-shrink:0; margin-top:1px;
+    border:1px solid var(--hairline); border-radius:4px;
+    background:var(--void);
+    cursor:pointer; position:relative;
+    transition:border-color .25s, background .25s;
+  }
+  #page-registro .policy-field input[type="checkbox"]:checked{ background:var(--violet-500); border-color:var(--violet-500); }
+  #page-registro .policy-field input[type="checkbox"]:checked::after{
+    content:''; position:absolute; left:6px; top:2px; width:5px; height:10px;
+    border:solid #fff; border-width:0 2px 2px 0; transform:rotate(45deg);
+  }
+  #page-registro .policy-field input[type="checkbox"]:focus-visible{ box-shadow:0 0 0 3px rgba(139,92,246,0.28); }
+  #page-registro .policy-field label{ font-size:0.84rem; color:var(--gray-soft); font-weight:300; line-height:1.6; cursor:pointer; }
+  #page-registro .policy-field a{ color:var(--violet-glow); text-decoration:underline; text-underline-offset:3px; }
+  #page-registro .policy-field a:hover{ color:var(--white); }
+
+  #page-registro .field-error{ font-family:'Poppins',sans-serif; font-size:0.68rem; color:#f0a6a6; margin-top:8px; display:none; }
+  #page-registro .field-error.show{ display:block; }
+
+  #page-registro .btn-submit{
+    width:100%;
+    font-family:'Poppins',sans-serif; font-size:0.88rem; letter-spacing:0.05em;
+    padding:17px 20px; border-radius:5px; border:none; cursor:pointer;
+    color:#fff;
+    background:linear-gradient(135deg, var(--violet-700), var(--violet-500));
+    box-shadow:0 0 0 rgba(139,92,246,0);
+    transition:box-shadow .3s, transform .3s, opacity .3s;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+  }
+  #page-registro .btn-submit:hover:not(:disabled){ box-shadow:0 0 34px rgba(139,92,246,0.55); transform:translateY(-2px); }
+  #page-registro .btn-submit:disabled{ opacity:0.75; cursor:not-allowed; transform:none; }
+  #page-registro .spinner{
+    width:15px; height:15px; border-radius:50%;
+    border:2px solid rgba(255,255,255,0.35); border-top-color:#fff;
+    animation:spin 0.7s linear infinite; display:none; flex-shrink:0;
+  }
+  #page-registro .btn-submit.loading .spinner{ display:inline-block; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  #page-registro .form-footnote{
+    text-align:center; margin-top:20px; font-family:'Poppins',sans-serif;
+    font-size:0.66rem; color:var(--gray-soft); letter-spacing:0.03em;
+  }
+
+  #page-registro .success-view{ text-align:center; }
+  #page-registro .success-badge{
+    width:78px; height:78px; margin:0 auto 30px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:radial-gradient(circle at 35% 30%, rgba(139,92,246,0.4), rgba(21,16,31,0.2));
+    border:1px solid var(--violet-500);
+    position:relative;
+  }
+  #page-registro .success-badge::after{
+    content:''; position:absolute; inset:-8px; border-radius:50%;
+    border:1px solid rgba(139,92,246,0.35);
+    animation:orbit-pulse 2.6s ease-in-out infinite;
+  }
+  @keyframes orbit-pulse{ 0%,100%{ transform:scale(1); opacity:.7; } 50%{ transform:scale(1.15); opacity:0; } }
+  #page-registro .success-badge svg{ width:34px; height:34px; stroke:var(--violet-glow); position:relative; z-index:1; }
+
+  #page-registro .success-view h2{
+    font-family:'Poppins',sans-serif;
+    font-size:clamp(1.6rem, 5vw, 2.2rem); margin-bottom:18px;
+    background:linear-gradient(135deg,#fff,var(--violet-glow));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  #page-registro .success-view > p.lead{
+    color:var(--gray-soft); font-weight:300; font-size:0.98rem; line-height:1.75;
+    max-width:440px; margin:0 auto 34px;
+  }
+  #page-registro .success-view > p.lead strong{ color:var(--white); font-weight:600; }
+
+  #page-registro .risk-box{
+    text-align:left;
+    background:rgba(240,166,166,0.06);
+    border:1px solid rgba(240,166,166,0.3);
+    border-radius:8px;
+    padding:20px 22px;
+    margin:0 auto 38px;
+    max-width:480px;
+    display:flex; gap:14px; align-items:flex-start;
+  }
+  #page-registro .risk-box svg{ width:20px; height:20px; stroke:#f0a6a6; flex-shrink:0; margin-top:2px; }
+  #page-registro .risk-box p{ font-size:0.83rem; color:var(--gray-soft); font-weight:300; line-height:1.7; }
+  #page-registro .risk-box p strong{ color:#f0a6a6; font-weight:600; }
+
+  #page-registro .btn-home{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'Poppins',sans-serif; font-size:0.85rem; letter-spacing:0.04em;
+    padding:15px 32px; border-radius:5px;
+    border:1px solid var(--violet-500); color:var(--white);
+    transition:background .25s, box-shadow .25s, transform .25s;
+  }
+  #page-registro .btn-home:hover{ background:var(--violet-500); box-shadow:0 0 30px rgba(139,92,246,0.5); transform:translateY(-2px); }
+  #page-registro .btn-home svg{ width:15px; height:15px; flex-shrink:0; }
+
+  /* ---------- AVISO LEGAL / CONSENTIMIENTO ---------- */
+  #legalOverlay{
+    position:fixed; inset:0; z-index:1000;
+    background:rgba(5,3,9,0.86);
+    backdrop-filter:blur(6px);
+    display:flex; align-items:center; justify-content:center;
+    padding:24px;
+    opacity:0; pointer-events:none;
+    transition:opacity .35s ease;
+  }
+  #legalOverlay.show{ opacity:1; pointer-events:auto; }
+  body.legal-lock{ overflow:hidden; }
+
+  .legal-modal{
+    width:100%; max-width:520px;
+    background:linear-gradient(180deg, var(--panel), var(--panel-2));
+    border:1px solid var(--hairline);
+    border-radius:12px;
+    padding:38px 34px;
+    position:relative;
+    box-shadow:0 30px 80px rgba(0,0,0,0.55);
+    transform:translateY(14px) scale(0.98);
+    transition:transform .35s ease;
+  }
+  #legalOverlay.show .legal-modal{ transform:translateY(0) scale(1); }
+  .legal-modal::before{
+    content:''; position:absolute; top:-1px; left:12%; right:12%; height:1px;
+    background:linear-gradient(90deg, transparent, var(--violet-glow), transparent);
+    opacity:0.75;
+  }
+  @media (max-width:520px){ .legal-modal{ padding:30px 22px; } }
+
+  .legal-modal .eyebrow{ margin-bottom:16px; }
+  .legal-modal h2{
+    font-family:'Poppins',sans-serif; font-size:clamp(1.3rem, 4vw, 1.6rem);
+    line-height:1.3; margin-bottom:16px; color:var(--white);
+  }
+  .legal-modal p{ color:var(--gray-soft); font-weight:300; font-size:0.92rem; line-height:1.75; margin-bottom:14px; }
+  .legal-modal p strong{ color:var(--white); font-weight:600; }
+  .legal-modal a.legal-link{
+    color:var(--violet-glow); text-decoration:underline; text-underline-offset:3px; font-weight:500;
+  }
+  .legal-modal a.legal-link:hover{ color:var(--white); }
+
+  .legal-actions{ display:flex; gap:14px; margin-top:26px; flex-wrap:wrap; }
+  .legal-actions button{
+    font-family:'Poppins',sans-serif; font-size:0.82rem; letter-spacing:0.03em;
+    padding:14px 22px; border-radius:5px; cursor:pointer; flex:1; min-width:140px;
+    transition:box-shadow .25s, transform .25s, background .25s, color .25s, border-color .25s;
+  }
+  #legalAccept{
+    border:none; color:#fff;
+    background:linear-gradient(135deg, var(--violet-700), var(--violet-500));
+  }
+  #legalAccept:hover{ box-shadow:0 0 30px rgba(139,92,246,0.5); transform:translateY(-2px); }
+  #legalDecline{
+    background:transparent; border:1px solid var(--hairline); color:var(--gray-soft);
+  }
+  #legalDecline:hover{ border-color:#f0a6a6; color:#f0a6a6; }
+
+  .legal-declined{ display:none; text-align:center; }
+  .legal-declined.show{ display:block; }
+  .legal-declined .legal-actions{ justify-content:center; }
+  .legal-declined .legal-actions button{ flex:none; }
+
+  .legal-footnote{
+    margin-top:20px; font-family:'Poppins',sans-serif; font-size:0.64rem;
+    color:var(--gray-soft); letter-spacing:0.02em; text-align:center; opacity:0.75;
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= AVISO LEGAL / MODAL DE CONSENTIMIENTO ================= -->
+<div id="legalOverlay" role="dialog" aria-modal="true" aria-labelledby="legalTitle">
+  <div class="legal-modal">
+
+    <!-- Vista: aviso principal -->
+    <div class="legal-view" id="legalView-notice">
+      <div class="eyebrow">AVISO LEGAL</div>
+      <h2 id="legalTitle">Antes de continuar</h2>
+      <p>Al navegar por este sitio y hacer uso de su contenido, <strong>aceptas los Términos y Condiciones y la Política de Privacidad</strong> de ZENTAURUZ, disponibles en el siguiente enlace:</p>
+      <p><a class="legal-link" href="https://www.zentauruz.com/politicas" target="_blank" rel="noopener">www.zentauruz.com/politicas</a></p>
+      <p>Te recomendamos leerlos antes de continuar. El contenido de este sitio es educativo e informativo; el trading conlleva un alto riesgo y no constituye asesoría financiera.</p>
+      <div class="legal-actions">
+        <button type="button" id="legalDecline">NO ACEPTO</button>
+        <button type="button" id="legalAccept">ACEPTO Y CONTINÚO</button>
+      </div>
+      <div class="legal-footnote">Tu decisión se guarda en este navegador para no volver a mostrarte este aviso.</div>
+    </div>
+
+    <!-- Vista: rechazo -->
+    <div class="legal-view legal-declined" id="legalView-declined">
+      <div class="eyebrow" style="justify-content:center;">SIN ACCESO</div>
+      <h2>Necesitamos tu aceptación</h2>
+      <p>Sin aceptar los Términos y Condiciones y la Política de Privacidad no podemos darte acceso al contenido de este sitio. Puedes revisarlos nuevamente antes de decidir, o salir del sitio.</p>
+      <div class="legal-actions">
+        <button type="button" id="legalReview">VOLVER A LEER EL AVISO</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<nav>
+  <a href="#inicio" class="brand" data-page="inicio">
+    <img class="brand-logo" src="https://github.com/zentauruz/imagenes-html/blob/main/ICONOFCLARO.png?raw=true" alt="Zentauruz">
+    <span class="brand-text">
+      <span class="brand-word">ZENTAUR<span class="accent">UZ</span></span>
+      <span class="brand-sub">TRADING TECHNOLOGY</span>
+    </span>
+  </a>
+  <div class="nav-right" id="navRight">
+    <div class="navlinks">
+      <a href="#curso" data-page="curso">Curso EA</a>
+      <a href="#biblioteca" data-page="biblioteca">Psicotrading</a>
+      <a href="#productos" data-page="productos">Productos</a>
+    </div>
+    <a href="#registro" data-page="registro" class="nav-cta">UNIRME →</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-overlay" id="navOverlay"></div>
+
+<div id="page-inicio" class="page active">
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <canvas id="constellation"></canvas>
+  <div class="hero-content">
+    <div class="eyebrow">COMUNIDAD DE TRADING ALGORÍTMICO</div>
+    <h1 class="hero-title">De trader manual<br>a arquitecto de sistemas</h1>
+    <p class="hero-sub">Aprende a construir y gestionar tus propios bots de trading sin saber programar, para pasar cuentas de fondeo o administrar tu capital propio.</p>
+    <div class="hero-actions">
+      <a href="#curso" data-page="curso" class="btn-primary">COMENZAR AHORA</a>
+      <a href="#registro" data-page="registro" class="btn-ghost">UNIRME A LA COMUNIDAD</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>DESCUBRE MÁS</span><span class="line"></span></div>
+</section>
+
+<!-- MANIFIESTO -->
+<section class="manifesto">
+  <div class="container manifesto-grid">
+    <div>
+      <div class="eyebrow">NUEVA ERA</div>
+      <h2>Zentauruz ya no es solo mentalidad.<br>Ahora es infraestructura.</h2>
+    </div>
+    <div class="manifesto-body">
+      <p>Durante años ayudamos a traders a dominar sus emociones. Hoy damos el siguiente paso: convertir esa disciplina mental en <strong>sistemas automatizados que operan sin miedo, sin duda y sin fatiga</strong>.</p>
+      <p>Zentauruz es la comunidad donde aprendes a diseñar, programar y gestionar Expert Advisors en MetaTrader 5 — el vehículo perfecto para pasar retos de cuentas de fondeo o escalar tu propio capital con reglas claras y verificables.</p>
+      <p>Y porque la mente sigue siendo el motor de todo, seguimos entrenándola: ahora con meditaciones y audios diseñados con palabras y declaraciones específicas para reprogramar tu psicología de trader durante esta fase.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PILARES -->
+<section class="pilares">
+  <div class="container">
+    <div class="pilares-head fade-in">
+      <div class="eyebrow" style="justify-content:center;">TRES PILARES</div>
+      <h2>Todo lo que necesitas para operar como sistema</h2>
+    </div>
+    <div class="pilar-grid">
+      <div class="pilar fade-in">
+        <svg class="pilar-icon" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.3"><path d="M3 17l5-6 4 4 8-9"/><circle cx="3" cy="17" r="1.4" fill="#a78bfa" stroke="none"/><circle cx="8" cy="11" r="1.4" fill="#a78bfa" stroke="none"/><circle cx="12" cy="15" r="1.4" fill="#a78bfa" stroke="none"/><circle cx="20" cy="6" r="1.4" fill="#a78bfa" stroke="none"/></svg>
+        <h3>Curso de EAs en MT5</h3>
+        <p>Diseña, programa y valida Expert Advisors propios, desde la lógica de entrada hasta la gestión de riesgo lista para fondeo.</p>
+      </div>
+      <div class="pilar fade-in">
+        <svg class="pilar-icon" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.3"><path d="M12 3c-3 3-5 6-5 9a5 5 0 0 0 10 0c0-3-2-6-5-9z"/><path d="M12 12v9"/></svg>
+        <h3>Psicotrading aplicado</h3>
+        <p>Control emocional y mentalidad ganadora, ahora enfocados en confiar en un sistema en lugar de en el impulso del momento.</p>
+      </div>
+      <div class="pilar fade-in">
+        <svg class="pilar-icon" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.3"><path d="M3 12h3l2-7 4 14 2-9 2 4h5"/></svg>
+        <h3>Meditaciones y audios para reprogramar</h3>
+        <p>Meditaciones, pistas y declaraciones diseñadas para instalar en tu mente la calma y certeza que exige este proceso.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURSO TEASER (inicio) -->
+<section class="curso" id="curso-teaser">
+  <div class="container">
+    <div class="curso-top fade-in">
+      <div>
+        <div class="eyebrow">EL CAMINO</div>
+        <h2>De instalar MT5 a la cuenta fondeada</h2>
+      </div>
+      <p>Cinco etapas, en orden, para que cada Expert Advisor que construyas esté listo para capital real — propio o de una firma de fondeo.</p>
+    </div>
+    <div class="teaser-steps">
+      <div class="teaser-step fade-in">
+        <span class="modulo-num">01</span>
+        <div><h4>Introducción a MT5</h4><p>Instalación de la plataforma, recorrido por la interfaz y apertura de una cuenta demo.</p></div>
+      </div>
+      <div class="teaser-step fade-in">
+        <span class="modulo-num">02</span>
+        <div><h4>Fundamentos de MQL5 y lógica de un EA</h4><p>Estructura de un Expert Advisor, variables de entrada y manejo de órdenes.</p></div>
+      </div>
+      <div class="teaser-step fade-in">
+        <span class="modulo-num">03</span>
+        <div><h4>Construcción de la estrategia</h4><p>De tu edge a reglas programables: entradas, filtros y condiciones de salida.</p></div>
+      </div>
+      <div class="teaser-step fade-in">
+        <span class="modulo-num">04</span>
+        <div><h4>Gestión de riesgo lista para fondeo</h4><p>Drawdown, tamaño de posición dinámico y reglas de las principales firmas de fondeo.</p></div>
+      </div>
+      <div class="teaser-step fade-in">
+        <span class="modulo-num">05</span>
+        <div><h4>Despliegue y gestión de capital</h4><p>VPS, monitoreo y escalado de capital sin romper la estrategia original.</p></div>
+      </div>
+    </div>
+    <div class="teaser-cta-wrap fade-in">
+      <a href="#curso" data-page="curso" class="btn-primary">VER CURSO COMPLETO</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRODUCTOS — TEASER (inicio) -->
+<section class="productos" id="productos">
+  <div class="container" style="text-align:center; max-width:680px; margin:0 auto;">
+    <div class="eyebrow" style="justify-content:center;">PRODUCTOS</div>
+    <h2 class="fade-in" style="font-size:clamp(1.9rem, 3.6vw, 2.7rem); margin:20px 0 22px;">Las EAs que obtienes al unirte a la comunidad</h2>
+    <p class="musica-intro-desc fade-in" style="margin-left:auto; margin-right:auto;">Zentauruz MARCUS, VIERNES y MAYO: tres sistemas de trading algorítmico para XAUUSD, probados con datos históricos reales — cada uno con su propia lógica de entrada, disciplina de riesgo y curva de crecimiento.</p>
+    <div class="musica-cta-wrap fade-in"><a href="#productos" data-page="productos" class="btn-primary">VER PRODUCTOS COMPLETOS</a></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PSICOTRADING — INTRO -->
+<section class="musica" id="musica">
+  <div class="container" style="text-align:center; max-width:680px; margin:0 auto;">
+    <div class="eyebrow" style="justify-content:center;">SONIDO Y MENTE</div>
+    <h2 class="fade-in" style="font-size:clamp(1.9rem, 3.6vw, 2.7rem); margin:20px 0 22px;">Reprograma tu psicología de trader con meditaciones y audios</h2>
+    <p class="musica-intro-desc fade-in" style="margin-left:auto; margin-right:auto;">Meditaciones guiadas y pistas compuestas con inteligencia artificial, con declaraciones habladas pensadas para instalar calma, paciencia y confianza en el sistema — justo la mentalidad que exige vivir esta fase de transformación.</p>
+    <div class="musica-cta-wrap fade-in"><a href="#biblioteca" data-page="biblioteca" class="btn-primary">EXPLORAR PSICOTRADING</a></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- RESULTADOS / RECONOCIMIENTO -->
+<section class="resultados" id="reconocimiento">
+  <div class="container">
+    <div class="pilares-head fade-in">
+      <div class="eyebrow" style="justify-content:center;">RECONOCIMIENTO</div>
+      <h2>Una comunidad construida con evidencia</h2>
+    </div>
+    <div class="stat-grid">
+      <div class="stat fade-in"><b>MQL5</b><span>Lenguaje del curso</span></div>
+      <div class="stat fade-in"><b>4</b><span>Etapas del camino</span></div>
+      <div class="stat fade-in"><b>24/7</b><span>EAs operando por ti</span></div>
+      <div class="stat fade-in"><b>1</b><span>Mente, un solo sistema</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CTA -->
+<section class="cta" id="unirme">
+  <div class="container cta-inner fade-in">
+    <div class="eyebrow" style="justify-content:center;">EL SIGUIENTE PASO</div>
+    <h2>Construye el sistema que opere por ti</h2>
+    <p>Únete a Zentauruz y empieza a diseñar tu primer Expert Advisor mientras entrenas la mente que lo va a sostener.</p>
+    <div class="hero-actions">
+      <a href="#registro" data-page="registro" class="btn-primary">UNIRME AHORA</a>
+      <a href="#curso" data-page="curso" class="btn-ghost">VER PLAN DEL CURSO</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /page-inicio -->
+
+<!-- PÁGINA: CURSO COMPLETO -->
+<div id="page-curso" class="page">
+<!-- CURSO -->
+<section class="curso" id="curso" style="padding-top:190px;">
+  <div class="container">
+    <div class="page-header fade-in">
+        <a href="#inicio" data-page="inicio" class="back-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          VOLVER A INICIO
+        </a>
+      </div>
+      <div class="curso-top fade-in">
+      <div>
+        <div class="eyebrow">EL CAMINO</div>
+        <h2>De instalar MT5 a la cuenta fondeada</h2>
+      </div>
+      <p>Cinco etapas, en orden, para que cada Expert Advisor que construyas esté listo para capital real — propio o de una firma de fondeo.</p>
+    </div>
+
+    <div class="accordion-item fade-in" data-video="9ZR_R8bWcU8">
+      <button class="accordion-header" aria-expanded="false">
+        <span class="modulo-num">01</span>
+        <span class="modulo-heading">
+          <h3>Introducción a MT5</h3>
+          <span class="modulo-time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>30 min</span>
+        </span>
+        <span class="modulo-cta">IR A CURSO<span class="accordion-chevron"></span></span>
+      </button>
+      <div class="accordion-panel">
+        <div class="accordion-panel-inner">
+          <p>Instalación de MetaTrader 5, recorrido por la plataforma, apertura de una cuenta demo y primeros pasos para moverte con soltura antes de tocar código.</p>
+          <div class="modulo-tags"><span>Instalación MT5</span><span>Cuenta demo</span><span>Navegación de la plataforma</span></div>
+          <div class="modulo-video"><iframe data-src="https://www.youtube.com/embed/9ZR_R8bWcU8" title="Etapa 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item fade-in" data-video="9ZR_R8bWcU8">
+      <button class="accordion-header" aria-expanded="false">
+        <span class="modulo-num">02</span>
+        <span class="modulo-heading">
+          <h3>Fundamentos de MQL5 y lógica de un EA</h3>
+          <span class="modulo-time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>30 min</span>
+        </span>
+        <span class="modulo-cta">IR A CURSO<span class="accordion-chevron"></span></span>
+      </button>
+      <div class="accordion-panel">
+        <div class="accordion-panel-inner">
+          <p>Estructura de un Expert Advisor, variables de entrada, manejo de órdenes y por qué automatizar reduce el error humano en la ejecución.</p>
+          <div class="modulo-tags"><span>MQL5</span><span>MT5</span><span>Órdenes y posiciones</span></div>
+          <div class="modulo-video"><iframe data-src="https://www.youtube.com/embed/9ZR_R8bWcU8" title="Etapa 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item fade-in" data-video="9ZR_R8bWcU8">
+      <button class="accordion-header" aria-expanded="false">
+        <span class="modulo-num">03</span>
+        <span class="modulo-heading">
+          <h3>Construcción de la estrategia</h3>
+          <span class="modulo-time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>30 min</span>
+        </span>
+        <span class="modulo-cta">IR A CURSO<span class="accordion-chevron"></span></span>
+      </button>
+      <div class="accordion-panel">
+        <div class="accordion-panel-inner">
+          <p>Traduces tu edge —o el que aprendes en la comunidad— a reglas programables: entradas, filtros de tendencia y condiciones de salida.</p>
+          <div class="modulo-tags"><span>Backtesting</span><span>Multi-timeframe</span><span>Indicadores propios</span></div>
+          <div class="modulo-video"><iframe data-src="https://www.youtube.com/embed/9ZR_R8bWcU8" title="Etapa 3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item fade-in" data-video="9ZR_R8bWcU8">
+      <button class="accordion-header" aria-expanded="false">
+        <span class="modulo-num">04</span>
+        <span class="modulo-heading">
+          <h3>Gestión de riesgo lista para fondeo</h3>
+          <span class="modulo-time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>30 min</span>
+        </span>
+        <span class="modulo-cta">IR A CURSO<span class="accordion-chevron"></span></span>
+      </button>
+      <div class="accordion-panel">
+        <div class="accordion-panel-inner">
+          <p>Límites de drawdown, tamaño de posición dinámico y reglas de las principales firmas de fondeo integradas directamente en el EA.</p>
+          <div class="modulo-tags"><span>Money management</span><span>Reglas prop firm</span><span>Control de drawdown</span></div>
+          <div class="modulo-video"><iframe data-src="https://www.youtube.com/embed/9ZR_R8bWcU8" title="Etapa 4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item fade-in" data-video="9ZR_R8bWcU8">
+      <button class="accordion-header" aria-expanded="false">
+        <span class="modulo-num">05</span>
+        <span class="modulo-heading">
+          <h3>Despliegue y gestión de capital</h3>
+          <span class="modulo-time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>30 min</span>
+        </span>
+        <span class="modulo-cta">IR A CURSO<span class="accordion-chevron"></span></span>
+      </button>
+      <div class="accordion-panel">
+        <div class="accordion-panel-inner">
+          <p>Pones el EA a operar en real o en tu cuenta fondeada, y aprendes a monitorear, ajustar y escalar sin romper la estrategia original.</p>
+          <div class="modulo-tags"><span>VPS y monitoreo</span><span>Escalado de capital</span><span>Multi-cuenta</span></div>
+          <div class="modulo-video"><iframe data-src="https://www.youtube.com/embed/9ZR_R8bWcU8" title="Etapa 5" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div><!-- /page-curso -->
+
+<!-- PÁGINA: PSICOTRADING COMPLETO -->
+<div id="page-biblioteca" class="page">
+<!-- PSICOTRADING COMPLETO -->
+<section class="musica" id="biblioteca" style="background:var(--obsidian); border-top:1px solid var(--hairline); padding-top:190px;">
+  <div class="container">
+    <div class="page-header fade-in">
+        <a href="#inicio" data-page="inicio" class="back-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          VOLVER A INICIO
+        </a>
+      </div>
+      <div class="pilares-head fade-in">
+      <div class="eyebrow" style="justify-content:center;">PSICOTRADING</div>
+      <h2>Meditaciones y audios para reprogramar tu mente de trader</h2>
+    </div>
+
+    <!-- BLOQUE 1: MEDITACIONES -->
+    <div class="psico-block">
+      <div class="psico-block-head fade-in">
+        <div class="eyebrow">MEDITACIONES</div>
+        <h3>Qué son las meditaciones</h3>
+        <p>Sesiones guiadas para calmar la mente antes o después de operar, soltar la ansiedad del resultado y reforzar la confianza en tu sistema. No necesitas experiencia previa: solo un espacio tranquilo y unos minutos.</p>
+      </div>
+      <div class="psico-video-wrap fade-in">
+        <iframe data-src="https://www.youtube.com/embed/9ZR_R8bWcU8" title="Qué son las meditaciones" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="track-list fade-in">
+        <div class="track" data-audio="https://github.com/zentauruz/imagenes-html/blob/main/C1.mp3?raw=true">
+          <button class="track-play" aria-label="Reproducir">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M6 4l14 8-14 8V4z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+          </button>
+          <div class="track-info"><div class="track-name">Meditación</div><div class="track-tag">MEDITACIÓN · 5 MIN</div></div>
+          <div class="track-actions">
+            <div class="track-bars"><span></span><span></span><span></span><span></span></div>
+            <a class="track-video-btn" href="https://github.com/zentauruz/imagenes-html/blob/main/C1.mp3?raw=true" download>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+              DESCARGAR
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="psico-block-divider"></div>
+
+    <!-- BLOQUE 2: CANCIONES HECHAS CON IA -->
+    <div class="psico-block">
+      <div class="psico-block-head fade-in">
+        <div class="eyebrow">CANCIONES CON IA</div>
+        <h3>Qué son las canciones hechas con IA</h3>
+        <p>Pistas compuestas con inteligencia artificial que combinan música y declaraciones habladas, pensadas para instalar en tu mente la calma, la paciencia y la confianza en el sistema.</p>
+      </div>
+      <div class="psico-video-wrap fade-in">
+        <iframe data-src="https://www.youtube.com/embed/9ZR_R8bWcU8" title="Qué son las canciones con IA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="track-list fade-in">
+        <div class="track" data-audio="https://github.com/zentauruz/imagenes-html/blob/main/C1.mp3?raw=true">
+          <button class="track-play" aria-label="Reproducir">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M6 4l14 8-14 8V4z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+          </button>
+          <div class="track-info"><div class="track-name">Despierta la Fuerza</div><div class="track-tag">MOTIVACION · 5 MIN</div></div>
+          <div class="track-actions">
+            <div class="track-bars"><span></span><span></span><span></span><span></span></div>
+            <a class="track-video-btn" href="https://github.com/zentauruz/imagenes-html/blob/main/C1.mp3?raw=true" download>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+              DESCARGAR
+            </a>
+          </div>
+        </div>
+        <div class="track" data-audio="https://github.com/zentauruz/imagenes-html/blob/main/C2.mp3?raw=true">
+          <button class="track-play" aria-label="Reproducir">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M6 4l14 8-14 8V4z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+          </button>
+          <div class="track-info"><div class="track-name">Ganar es Posible</div><div class="track-tag">AMBIENTE · 2 MIN</div></div>
+          <div class="track-actions">
+            <div class="track-bars"><span></span><span></span><span></span><span></span></div>
+            <a class="track-video-btn" href="https://github.com/zentauruz/imagenes-html/blob/main/C2.mp3?raw=true" download>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+              DESCARGAR
+            </a>
+          </div>
+        </div>
+        <div class="track" data-audio="https://github.com/zentauruz/imagenes-html/blob/main/C33.mp3?raw=true">
+          <button class="track-play" aria-label="Reproducir">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M6 4l14 8-14 8V4z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+          </button>
+          <div class="track-info"><div class="track-name">Sigo la Tendencia</div><div class="track-tag">DECLARACIONES · 4 MIN</div></div>
+          <div class="track-actions">
+            <div class="track-bars"><span></span><span></span><span></span><span></span></div>
+            <a class="track-video-btn" href="https://github.com/zentauruz/imagenes-html/blob/main/C33.mp3?raw=true" download>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+              DESCARGAR
+            </a>
+          </div>
+        </div>
+        <div class="track" data-audio="https://github.com/zentauruz/imagenes-html/blob/main/C4.mp3?raw=true">
+          <button class="track-play" aria-label="Reproducir">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M6 4l14 8-14 8V4z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+          </button>
+          <div class="track-info"><div class="track-name">Todo es Posible</div><div class="track-tag">AMBIENTE · 5 MIN</div></div>
+          <div class="track-actions">
+            <div class="track-bars"><span></span><span></span><span></span><span></span></div>
+            <a class="track-video-btn" href="https://github.com/zentauruz/imagenes-html/blob/main/C4.mp3?raw=true" download>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+              DESCARGAR
+            </a>
+          </div>
+        </div>
+        <div class="track" data-audio="https://github.com/zentauruz/imagenes-html/blob/main/C55.mp3?raw=true">
+          <button class="track-play" aria-label="Reproducir">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M6 4l14 8-14 8V4z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+          </button>
+          <div class="track-info"><div class="track-name">Prueba de Fondeo</div><div class="track-tag">DECLARACIONES · 4 MIN</div></div>
+          <div class="track-actions">
+            <div class="track-bars"><span></span><span></span><span></span><span></span></div>
+            <a class="track-video-btn" href="https://github.com/zentauruz/imagenes-html/blob/main/C55.mp3?raw=true" download>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+              DESCARGAR
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</div><!-- /page-biblioteca -->
+
+<!-- PÁGINA: PRODUCTOS COMPLETO -->
+<div id="page-productos" class="page">
+<section class="pilares" id="productos-full" style="padding-top:190px;">
+  <div class="container">
+    <div class="page-header fade-in">
+      <a href="#inicio" data-page="inicio" class="back-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        VOLVER A INICIO
+      </a>
+    </div>
+    <div class="pilares-head fade-in">
+      <div class="eyebrow" style="justify-content:center;">PRODUCTOS</div>
+      <h2>Conoce todas las EAs disponibles</h2>
+      <p style="color:var(--gray-soft); font-weight:300; line-height:1.75; font-size:0.96rem; margin-top:16px;">Sistemas de trading algorítmico para XAUUSD, probados con datos históricos reales. Explora cada uno para ver su lógica, su disciplina de riesgo y su curva de crecimiento.</p>
+    </div>
+
+    <div class="prod-grid" id="prodGrid"></div>
+
+    <div class="prod-foot fade-in">
+      <p>Resultados de backtesting sobre XAUUSD. No es una sugerencia de inversión.</p>
+      <a href="#registro" data-page="registro" class="btn-primary">QUIERO UNIRME</a>
+    </div>
+  </div>
+</section>
+</div><!-- /page-productos -->
+
+<!-- Ficha técnica (overlay) -->
+<div class="prod-overlay" id="prodOverlay">
+  <div class="prod-panel" id="prodPanel"></div>
+</div>
+
+<!-- PÁGINA: REGISTRO / ÚNETE -->
+<div id="page-registro" class="page">
+<section style="padding-top:190px; padding-bottom:100px; position:relative;">
+  <div class="glow-orb one"></div>
+  <div class="glow-orb two"></div>
+  <div class="registro-wrap">
+    <div class="page-header fade-in">
+      <a href="#inicio" data-page="inicio" class="back-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        VOLVER A INICIO
+      </a>
+    </div>
+
+    <div class="brand-mark fade-in visible">
+      <img src="https://github.com/zentauruz/imagenes-html/blob/main/ICONOFCLARO.png?raw=true" alt="Zentauruz">
+      <span>ZENTAUR<span class="accent">UZ</span></span>
+    </div>
+
+    <!-- VISTA: FORMULARIO -->
+    <div class="view" id="view-form">
+      <div class="form-head fade-in visible">
+        <div class="eyebrow">ÚNETE A LA COMUNIDAD</div>
+        <h1>Da el primer paso hacia tu sistema</h1>
+        <p>Completa tus datos y obtén acceso inmediato a todo lo que Zentauruz tiene para ti.</p>
+
+        <div class="benefits">
+          <div class="benefit">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+            <span><strong>Material de apoyo completo</strong>, incluyendo los bots (EAs) creados por la comunidad.</span>
+          </div>
+          <div class="benefit">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+            <span><strong>Acceso a la comunidad</strong> de traders algorítmicos de Zentauruz.</span>
+          </div>
+          <div class="benefit">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+            <span><strong>Acceso anticipado</strong> a todas las noticias y novedades antes que nadie.</span>
+          </div>
+        </div>
+      </div>
+
+      <form id="joinForm" class="fade-in visible" novalidate>
+        <div class="field">
+          <label for="nombre">Nombre completo <span class="req">*</span></label>
+          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required>
+          <div class="field-error" id="err-nombre">Por favor ingresa tu nombre.</div>
+        </div>
+
+        <div class="field">
+          <label for="correo">Correo electrónico <span class="req">*</span></label>
+          <input type="email" id="correo" name="correo" placeholder="tunombre@correo.com" required>
+          <div class="field-error" id="err-correo">Ingresa un correo válido.</div>
+        </div>
+
+        <div class="field">
+          <label for="telefono">Teléfono <span class="opt">(opcional)</span></label>
+          <div class="phone-row">
+            <select id="codigoPais" name="codigoPais" aria-label="Código de país">
+              <option value="+57" data-flag="🇨🇴" selected>🇨🇴 +57</option>
+              <option value="+52" data-flag="🇲🇽">🇲🇽 +52</option>
+              <option value="+34" data-flag="🇪🇸">🇪🇸 +34</option>
+              <option value="+54" data-flag="🇦🇷">🇦🇷 +54</option>
+              <option value="+56" data-flag="🇨🇱">🇨🇱 +56</option>
+              <option value="+51" data-flag="🇵🇪">🇵🇪 +51</option>
+              <option value="+593" data-flag="🇪🇨">🇪🇨 +593</option>
+              <option value="+58" data-flag="🇻🇪">🇻🇪 +58</option>
+              <option value="+591" data-flag="🇧🇴">🇧🇴 +591</option>
+              <option value="+595" data-flag="🇵🇾">🇵🇾 +595</option>
+              <option value="+598" data-flag="🇺🇾">🇺🇾 +598</option>
+              <option value="+506" data-flag="🇨🇷">🇨🇷 +506</option>
+              <option value="+507" data-flag="🇵🇦">🇵🇦 +507</option>
+              <option value="+502" data-flag="🇬🇹">🇬🇹 +502</option>
+              <option value="+503" data-flag="🇸🇻">🇸🇻 +503</option>
+              <option value="+504" data-flag="🇭🇳">🇭🇳 +504</option>
+              <option value="+505" data-flag="🇳🇮">🇳🇮 +505</option>
+              <option value="+1" data-flag="🇺🇸">🇺🇸 +1</option>
+              <option value="+1" data-flag="🇩🇴">🇩🇴 +1 (RD)</option>
+              <option value="+53" data-flag="🇨🇺">🇨🇺 +53</option>
+            </select>
+            <input type="tel" id="telefono" name="telefono" placeholder="300 123 4567">
+          </div>
+        </div>
+
+        <div class="policy-field">
+          <input type="checkbox" id="politica" name="politica" required>
+          <label for="politica">He leído y acepto las <a href="https://www.zentauruz.com/politicas" target="_blank" rel="noopener">políticas de privacidad</a>.</label>
+        </div>
+        <div class="field-error" id="err-politica" style="margin-top:-18px; margin-bottom:20px;">Debes aceptar las políticas de privacidad para continuar.</div>
+
+        <button type="submit" class="btn-submit" id="submitBtn">
+          <span class="spinner"></span>
+          <span id="submitLabel">ENVIAR</span>
+        </button>
+
+        <div class="form-footnote">TUS DATOS ESTÁN PROTEGIDOS Y SOLO SE USAN PARA DARTE ACCESO A LA COMUNIDAD.</div>
+      </form>
+    </div>
+
+    <!-- VISTA: ÉXITO -->
+    <div class="view hidden" id="view-success">
+      <div class="success-view fade-in visible">
+        <div class="success-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <div class="eyebrow" style="margin-bottom:16px;">SOLICITUD RECIBIDA</div>
+        <h2>Formulario enviado</h2>
+        <p class="lead">Ya recibimos tu información. En tu correo <strong>encontrarás el acceso a los datos y al material de la comunidad.</strong> Revisa también la carpeta de spam por si acaso.</p>
+
+        <div class="risk-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 9v4M12 17h.01M10.29 3.86l-8.18 14.18A2 2 0 0 0 3.82 21h16.36a2 2 0 0 0 1.71-2.96L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+          <p><strong>Esto no es una sugerencia de inversión.</strong> El trading es una actividad de alto riesgo. Nunca operes con dinero que no estés dispuesto a perder.</p>
+        </div>
+
+        <a href="#inicio" data-page="inicio" class="btn-home">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          VOLVER A INICIO
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+</div><!-- /page-registro -->
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">ZENTAUR<span style="color:var(--white);">UZ</span></div>
+        <div class="footer-tagline">DATOS <span>•</span> DISCIPLINA <span>•</span> RESULTADOS</div>
+      </div>
+      <div class="footer-links">
+        <a href="#curso" data-page="curso">Curso EA</a>
+        <a href="#biblioteca" data-page="biblioteca">Psicotrading</a>
+        <a href="#productos" data-page="productos">Productos</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 ZENTAURUZ TRADING TECHNOLOGY. TODOS LOS DERECHOS RESERVADOS.</div>
+  </div>
+</footer>
+
+<script>
+  // ---- Constelación animada en el hero ----
+  const canvas = document.getElementById('constellation');
+  const ctx = canvas.getContext('2d');
+  let w, h, stars = [];
+  const STAR_COUNT_BASE = 90;
+
+  function resize(){
+    w = canvas.width = canvas.offsetWidth;
+    h = canvas.height = canvas.offsetHeight;
+  }
+
+  function initStars(){
+    const count = window.innerWidth < 700 ? 45 : STAR_COUNT_BASE;
+    stars = Array.from({length:count}, () => ({
+      x: Math.random()*w,
+      y: Math.random()*h,
+      r: Math.random()*1.6 + 0.4,
+      vx: (Math.random()-0.5)*0.12,
+      vy: (Math.random()-0.5)*0.12,
+      tw: Math.random()*Math.PI*2
+    }));
+  }
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    const maxDist = w < 700 ? 110 : 150;
+
+    for(let i=0;i<stars.length;i++){
+      const s = stars[i];
+      if(!reduceMotion){
+        s.x += s.vx; s.y += s.vy; s.tw += 0.02;
+        if(s.x < 0) s.x = w; if(s.x > w) s.x = 0;
+        if(s.y < 0) s.y = h; if(s.y > h) s.y = 0;
+      }
+      const twinkle = 0.5 + Math.sin(s.tw)*0.5;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(167,139,250,${0.35 + twinkle*0.5})`;
+      ctx.fill();
+    }
+
+    for(let i=0;i<stars.length;i++){
+      for(let j=i+1;j<stars.length;j++){
+        const dx = stars[i].x - stars[j].x;
+        const dy = stars[i].y - stars[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist < maxDist){
+          ctx.beginPath();
+          ctx.moveTo(stars[i].x, stars[i].y);
+          ctx.lineTo(stars[j].x, stars[j].y);
+          ctx.strokeStyle = `rgba(139,92,246,${0.16 * (1 - dist/maxDist)})`;
+          ctx.lineWidth = 0.6;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', () => { resize(); initStars(); });
+  resize(); initStars(); draw();
+
+  // ---- Reveal on scroll ----
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); } });
+  }, {threshold:0.15});
+  document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+
+  // ---- Acordeón del curso (con carga diferida del video) ----
+  document.querySelectorAll('.accordion-item').forEach(item => {
+    const header = item.querySelector('.accordion-header');
+    const panel = item.querySelector('.accordion-panel');
+    const iframe = item.querySelector('.modulo-video iframe');
+
+    header.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+
+      // cierra los demás módulos para un efecto de acordeón limpio
+      document.querySelectorAll('.accordion-item.open').forEach(other => {
+        if(other !== item){
+          other.classList.remove('open');
+          other.querySelector('.accordion-header').setAttribute('aria-expanded','false');
+          other.querySelector('.accordion-panel').style.maxHeight = null;
+        }
+      });
+
+      if(isOpen){
+        item.classList.remove('open');
+        header.setAttribute('aria-expanded','false');
+        panel.style.maxHeight = null;
+      } else {
+        item.classList.add('open');
+        header.setAttribute('aria-expanded','true');
+        if(iframe && !iframe.src){ iframe.src = iframe.dataset.src; }
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // recalcula la altura del panel abierto si la ventana cambia de tamaño
+  window.addEventListener('resize', () => {
+    document.querySelectorAll('.accordion-item.open .accordion-panel').forEach(panel => {
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+    });
+  });
+
+  // ---- Carga diferida de los videos de Psicotrading (meditaciones / canciones IA) ----
+  document.querySelectorAll('.psico-video-wrap iframe').forEach(iframe => {
+    if(!iframe.src){ iframe.src = iframe.dataset.src; }
+  });
+
+  // ---- Reproductor de audio (meditaciones / canciones) ----
+  let currentAudio = null, currentTrackEl = null;
+  document.querySelectorAll('.track').forEach(track => {
+    const playBtn = track.querySelector('.track-play');
+    const src = track.dataset.audio;
+    const audio = new Audio(src);
+    audio.preload = 'none';
+
+    playBtn.addEventListener('click', () => {
+      const isPlaying = track.classList.contains('is-playing');
+
+      if(currentAudio && currentAudio !== audio){
+        currentAudio.pause();
+        currentTrackEl.classList.remove('is-playing');
+      }
+
+      if(isPlaying){
+        audio.pause();
+        track.classList.remove('is-playing');
+      } else {
+        audio.play().catch(() => {});
+        track.classList.add('is-playing');
+        currentAudio = audio;
+        currentTrackEl = track;
+      }
+    });
+
+    audio.addEventListener('ended', () => track.classList.remove('is-playing'));
+  });
+
+  // ---- Productos: fichas técnicas de las EAs (MARCUS / VIERNES / MAYO) ----
+  const PROD_DATA = {
+    MARCUS: {
+      tag:"Multi-temporalidad",
+      short:"Solo opera cuando el corto, mediano y largo plazo se alinean en la misma dirección, evitando señales contradictorias.",
+      que_es:"Sistema de trading automatizado (Expert Advisor) diseñado para operar XAUUSD combinando análisis técnico multi-temporalidad con una gestión de riesgo estricta y disciplinada.",
+      filosofia:"Antes de operar hay que tener claro el contexto del mercado en varias temporalidades a la vez. MARCUS solo participa cuando el panorama de corto, mediano y largo plazo apunta genuinamente en la misma dirección, evitando momentos de indecisión o señales contradictorias entre marcos de tiempo.",
+      funciona:[
+        "Contexto multi-temporalidad: analiza simultáneamente tres marcos de tiempo y construye un resumen del estado técnico de cada uno.",
+        "Alineación como condición de entrada: solo opera cuando las tres temporalidades coinciden con una señal clara y fuerte.",
+        "Filtro de extensión: verifica que el precio no esté ya demasiado extendido antes de entrar.",
+        "Gestión de riesgo adaptativa: el stop loss y el take profit se calculan de forma dinámica según la estructura reciente del precio."
+      ],
+      disciplina:[
+        "Límite de operaciones diarias para evitar la sobreoperación.",
+        "Freno tras pérdida: detiene la actividad del día apenas se registra una operación perdedora.",
+        "Una operación a la vez: nunca abre una nueva posición mientras ya tiene una activa."
+      ],
+      stats:{deposit:50000, net:15493.40, pf:1.22, trades:636, wr:"54.09%"},
+      curve:[50000.0,50070.95,50031.86,49838.06,50067.47,50042.68,50354.04,50554.64,50405.04,50706.02,51164.09,51213.8,51337.17,51700.21,51171.75,51154.84,51435.34,51152.83,51538.83,51736.62,51700.22,51650.73,52426.63,53136.51,53137.4,52986.74,52515.5,53132.06,52463.62,52527.42,51923.14,51621.59,51426.71,51061.28,50929.83,51259.55,51116.64,51323.61,51409.38,51526.03,51794.55,51738.0,52004.79,51788.09,51510.83,51317.18,51245.07,51578.43,52319.29,53097.27,52922.25,52721.28,52298.48,53428.75,53232.85,54440.12,54753.14,56454.75,55613.78,55763.35,55796.97,55778.89,55308.59,55995.02,55359.44,55069.6,54787.75,54466.43,54069.48,53741.63,54262.13,54183.18,54197.16,54157.95,54519.32,54939.62,55437.01,55705.68,56130.3,58985.75,60382.92,62159.0,61465.46,61295.55,61739.87,60521.56,60281.72,63191.9,63375.77,63330.4,61879.33,62427.36,63431.6,63645.88,64009.43,63490.83,63845.95,63651.11,63744.3,64108.92,63934.51,63947.37,64704.33,65270.6,65103.31,65782.29,66500.98,66464.82,66389.37,65647.96,65314.37,64511.25,65280.34,66376.6,66721.69,67543.41,67084.5,67629.07,67602.39,66727.01,65493.4]
+    },
+    VIERNES: {
+      tag:"Estructura + EMAs",
+      short:"Detecta rompimientos de estructura confirmados por medias móviles, con piramidación cuando el precio se mueve a favor.",
+      que_es:"Expert Advisor de trading automatizado basado en rompimiento de estructura de mercado con confirmación por medias móviles exponenciales (EMAs). Opera en temporalidad de 15 minutos, con gestión de riesgo dinámica y posibilidad de piramidación cuando el precio se mueve a favor.",
+      filosofia:"El mercado se mueve por estructura, no por ruido. Una ruptura de estructura válida indica un cambio de intención, pero no toda ruptura es operable: se exige confirmación por EMAs antes de entrar, asegurando que no sea un barrido de liquidez o una trampa de volatilidad. Primero la estructura, luego la confirmación, después la gestión.",
+      funciona:[
+        "Detección de rompimiento de estructura: identifica máximos y mínimos relevantes en M15.",
+        "Confirmación por EMAs: exige alineación y separación mínima entre medias para confirmar una tendencia definida.",
+        "Entrada solo cuando coinciden ruptura de estructura + confirmación por EMAs.",
+        "SL de seguridad en una temporalidad mayor (H1/H4) como protección extrema ante noticias o gaps.",
+        "Salida dinámica: cierra en un punto favorable si la estructura interna se invalida, sin esperar el SL duro.",
+        "Piramidación de operaciones cuando el precio va a favor y la estructura sigue confirmando, para maximizar tendencias fuertes."
+      ],
+      disciplina:[
+        "Una operación inicial a la vez; la piramidación solo ocurre si la primera está en beneficio.",
+        "Límite de operaciones diarias configurable.",
+        "Freno tras pérdida opcional para detener la actividad del día.",
+        "Exposición máxima definida por el usuario (posiciones simultáneas, riesgo por operación y acumulado)."
+      ],
+      stats:{deposit:50000, net:12105.10, pf:1.61, trades:1504, wr:"63.96%"},
+      curve:[50000.0,50734.13,50858.7,50562.08,50264.92,50290.15,50443.69,50429.05,50808.72,50899.6,51023.25,51133.51,51338.32,51746.89,52149.18,52039.43,51971.1,51996.6,52298.36,52546.37,52734.23,52862.58,52964.56,53252.71,53307.52,53356.55,53215.03,53166.22,53249.29,53418.86,53399.61,53942.39,53887.76,53928.67,53971.49,53820.71,53997.6,54350.22,54187.78,54625.23,54570.07,55113.03,55313.12,54856.34,54919.16,54976.27,54981.19,54768.34,54695.48,55216.03,55295.79,55562.78,55900.23,55829.28,55556.18,55809.19,55966.85,55989.24,56229.96,55908.54,56608.68,56746.64,57417.33,57516.43,57359.35,56928.29,57203.35,57599.81,57778.51,58064.04,58163.01,58206.89,58395.43,58023.2,58411.38,58712.92,58896.02,59018.05,58905.1,58887.88,58946.83,59275.33,58462.63,58192.55,58175.6,58840.6,58599.27,58667.65,58737.18,58679.83,59153.23,59087.61,58923.83,59433.05,59442.04,59698.03,59746.87,59947.22,59663.58,59849.67,60092.66,59877.81,59532.22,59665.0,59597.09,59398.91,59712.44,60024.92,59886.37,59591.29,59978.48,60372.31,60783.49,60668.13,60773.12,61214.37,61736.53,62089.11,62099.63,62109.27,62105.1]
+    },
+    MAYO: {
+      tag:"Ciclos de precio",
+      short:"Detecta zonas de precio clave dentro de cada ciclo con el método XLevel Range Detection, sin martingala ni cuadrícula.",
+      que_es:"Sistema de trading automatizado (Expert Advisor) para operar XAUUSD mediante un algoritmo basado en ciclos, capaz de identificar las zonas de precio más influyentes del mercado. A diferencia de soporte y resistencia tradicionales, detecta niveles clave dentro de cada ciclo con el método patentado XLevel Range Detection.",
+      filosofia:"El precio se mueve por ciclos, no por azar. Dentro de cada ciclo existen niveles que estadísticamente concentran la mayor probabilidad de reacción. El sistema no intenta predecir el mercado, sino identificar dónde es más probable que reaccione, operando solo cuando la acción del precio se alinea con señales de ruptura o reversión de alta probabilidad. La disciplina es el pilar central: una operación a la vez, sin estrategias peligrosas.",
+      funciona:[
+        "XLevel Range Detection: algoritmo basado en ciclos para ubicar las zonas de precio más influyentes.",
+        "Mapeo multinivel: detecta niveles micro, medios y subniveles dentro de cada rango de 100 puntos.",
+        "Rango adaptativo dinámico: sigue el rango más relevante según las condiciones actuales del mercado.",
+        "Gestión inteligente de lotes y riesgo, adaptada al saldo de la cuenta.",
+        "Stop loss dinámico y clásico combinados en cada operación.",
+        "Filtro de noticias que evita operar durante eventos de alto impacto."
+      ],
+      disciplina:[
+        "Una operación a la vez: nunca abre una nueva posición mientras ya tiene una activa.",
+        "Límite de operaciones diarias configurable para evitar la sobreoperación.",
+        "Sin cuadrícula, sin martingala, sin recuperación arriesgada: lógica estricta de operación única.",
+        "Diseñado para respetar los límites de riesgo diario de cuentas de fondeo (prop firms)."
+      ],
+      stats:{deposit:50000, net:16408.52, pf:1.17, trades:590, wr:"76.61%"},
+      curve:[50000.0,50947.63,51903.37,50598.91,50920.17,50932.5,48740.64,48131.99,48327.55,49277.31,50336.37,50791.65,50991.51,51015.24,51348.07,51515.85,50001.94,49379.74,50492.25,49193.19,49490.41,48843.18,50039.59,50398.74,49866.89,49364.14,49391.05,49348.15,48881.8,49228.95,49292.13,50473.24,49830.88,50715.01,51798.55,53097.18,52675.48,52717.26,53420.77,54511.07,55855.84,56011.04,57114.05,56568.66,57703.32,59176.74,58428.26,58890.09,58193.52,58243.53,56610.4,57551.14,57724.8,56996.6,56237.36,57450.13,57598.16,58224.3,56544.97,57003.94,56202.27,57622.72,56085.65,56371.91,55502.69,55847.02,55042.06,54432.27,53861.73,55112.23,55408.5,55525.24,56657.44,57945.36,59114.67,57514.58,58462.47,59365.56,58754.22,59311.46,58738.32,59082.87,58552.91,59647.25,60694.98,60192.55,60532.62,61910.68,62447.12,61473.59,62760.91,63012.88,64335.23,62641.25,62998.08,63344.06,63871.2,65216.42,64534.97,64867.58,63304.66,64521.49,64528.55,63890.05,64262.16,64749.92,64937.11,65471.75,64777.37,66106.31,65466.01,64558.03,64781.11,66041.82,65950.22,65320.37,66590.01,66910.11,67732.35,67124.87,66408.52]
+    }
+  };
+  const PROD_ORDER = ["MARCUS","VIERNES","MAYO"];
+
+  function prodFmt(n){ return "$"+Number(n).toLocaleString("es-CO",{maximumFractionDigits:0}); }
+
+  function buildProdGrid(){
+    const grid = document.getElementById("prodGrid");
+    if(!grid) return;
+    grid.innerHTML = PROD_ORDER.map(key=>{
+      const d = PROD_DATA[key];
+      return `<div class="prod-card fade-in visible" onclick="openProdPanel('${key}')">
+        <span class="prod-tag">${d.tag}</span>
+        <h3>ZENTAURUZ ${key}</h3>
+        <p>${d.short}</p>
+        <span class="prod-cta">Ver ficha técnica
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </div>`;
+    }).join("");
+  }
+
+  function buildProdChart(curve){
+    const w = 640, h = 200, pad = 10;
+    const min = Math.min(...curve), max = Math.max(...curve);
+    const range = (max-min) || 1;
+    const stepX = (w - pad*2) / (curve.length-1);
+    const pts = curve.map((v,i)=>{
+      const x = pad + i*stepX;
+      const y = pad + (h-pad*2) * (1 - (v-min)/range);
+      return [x,y];
+    });
+    const linePath = pts.map((p,i)=> (i===0?"M":"L")+p[0].toFixed(1)+","+p[1].toFixed(1)).join(" ");
+    const areaPath = linePath + ` L${pts[pts.length-1][0].toFixed(1)},${h-pad} L${pts[0][0].toFixed(1)},${h-pad} Z`;
+    const gid = "pg"+Math.random().toString(36).slice(2,8);
+    return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#a78bfa" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="${areaPath}" fill="url(#${gid})"/>
+      <path d="${linePath}" fill="none" stroke="#a78bfa" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="${pts[pts.length-1][0].toFixed(1)}" cy="${pts[pts.length-1][1].toFixed(1)}" r="4.5" fill="#ede9fe" stroke="#8b5cf6" stroke-width="2"/>
+    </svg>`;
+  }
+
+  function openProdPanel(key){
+    const d = PROD_DATA[key];
+    const s = d.stats;
+    const panel = document.getElementById("prodPanel");
+    panel.innerHTML = `
+      <div class="prod-panel-head">
+        <div>
+          <span class="prod-tag">${d.tag}</span>
+          <h2>ZENTAURUZ ${key}</h2>
+        </div>
+        <button class="prod-close" onclick="closeProdPanel()">✕</button>
+      </div>
+      <div class="prod-panel-body">
+        <h4>¿Qué es?</h4>
+        <p>${d.que_es}</p>
+
+        <h4>Filosofía</h4>
+        <p>${d.filosofia}</p>
+
+        <h4>Cómo funciona</h4>
+        <ul>${d.funciona.map(x=>`<li>${x}</li>`).join("")}</ul>
+
+        <h4>Disciplina operativa</h4>
+        <ul>${d.disciplina.map(x=>`<li>${x}</li>`).join("")}</ul>
+
+        <h4>Resultados de backtesting</h4>
+        <div class="prod-stats-grid">
+          <div class="prod-stat"><b>${prodFmt(s.deposit)}</b><span>Depósito inicial</span></div>
+          <div class="prod-stat"><b>${prodFmt(s.net)}</b><span>Beneficio neto</span></div>
+          <div class="prod-stat"><b>${s.pf}</b><span>Factor de beneficio</span></div>
+          <div class="prod-stat"><b>${s.trades}</b><span>Operaciones</span></div>
+          <div class="prod-stat"><b>${s.wr}</b><span>% Rentables</span></div>
+        </div>
+
+        <h4>Curva de crecimiento</h4>
+        <div class="prod-chart-wrap">${buildProdChart(d.curve)}</div>
+        <div class="prod-chart-caption">Evolución del balance en backtesting sobre XAUUSD</div>
+
+        <div class="prod-join-box">
+          <p>¿Deseas probar las EAs? Regístrate y únete a la comunidad Zentauruz.</p>
+          <a class="btn-primary" href="#registro" onclick="closeProdPanel(); setPage('registro');">QUIERO UNIRME</a>
+        </div>
+      </div>
+    `;
+    document.getElementById("prodOverlay").classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeProdPanel(){
+    document.getElementById("prodOverlay").classList.remove("open");
+    document.body.style.overflow = "";
+  }
+  document.getElementById("prodOverlay").addEventListener("click", (e)=>{
+    if(e.target.id==="prodOverlay") closeProdPanel();
+  });
+  document.addEventListener("keydown",(e)=>{ if(e.key==="Escape") closeProdPanel(); });
+
+  buildProdGrid();
+
+  // ---- Menú móvil / tablet ----
+  const navToggle = document.getElementById('navToggle');
+  const navRight = document.getElementById('navRight');
+  const navOverlay = document.getElementById('navOverlay');
+
+  function closeMobileNav(){
+    navRight.classList.remove('open');
+    navOverlay.classList.remove('open');
+    navToggle.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('nav-open');
+  }
+
+  function toggleMobileNav(){
+    const isOpen = navRight.classList.toggle('open');
+    navOverlay.classList.toggle('open', isOpen);
+    navToggle.classList.toggle('open', isOpen);
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+    document.body.classList.toggle('nav-open', isOpen);
+  }
+
+  navToggle.addEventListener('click', toggleMobileNav);
+  navOverlay.addEventListener('click', closeMobileNav);
+  navRight.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileNav));
+  window.addEventListener('resize', () => { if(window.innerWidth > 860) closeMobileNav(); });
+
+  // ---- Router de páginas (inicio / curso / biblioteca / registro) ----
+  const PAGES = ['inicio', 'curso', 'biblioteca', 'productos', 'registro'];
+
+  function setPage(id, push){
+    if(!PAGES.includes(id)) id = 'inicio';
+
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+
+    document.querySelectorAll('.navlinks a[data-page]').forEach(a => {
+      a.classList.toggle('active', a.dataset.page === id);
+    });
+
+    // pausa cualquier pista si salimos de la biblioteca
+    if(id !== 'biblioteca' && currentAudio){
+      currentAudio.pause();
+      if(currentTrackEl) currentTrackEl.classList.remove('is-playing');
+    }
+
+    // cierra la ficha técnica de producto si cambiamos de página
+    if(typeof closeProdPanel === 'function'){ closeProdPanel(); }
+
+    window.scrollTo(0, 0);
+
+    if(push !== false){ history.pushState({page:id}, '', '#' + id); }
+
+    // re-dispara la animación de entrada de la página activa
+    document.querySelectorAll('#page-' + id + ' .fade-in').forEach(el => el.classList.add('visible'));
+  }
+
+  document.querySelectorAll('[data-page]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      setPage(el.dataset.page);
+    });
+  });
+
+  window.addEventListener('popstate', () => {
+    const id = (location.hash || '#inicio').replace('#', '');
+    setPage(id, false);
+  });
+
+  // carga inicial según el hash de la URL
+  const initialPage = (location.hash || '#inicio').replace('#', '');
+  setPage(initialPage, false);
+
+  // ---- Formulario de registro (ÚNETE) ----
+  (function(){
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQf4awKPMgEuYv8H6k3UnhYuB6olyBfukQ6R5p0oPgsuKSrmZe01I7UyvbOY33AIeT/exec";
+
+    const form = document.getElementById('joinForm');
+    if(!form) return;
+
+    const submitBtn = document.getElementById('submitBtn');
+    const submitLabel = document.getElementById('submitLabel');
+    const viewForm = document.getElementById('view-form');
+    const viewSuccess = document.getElementById('view-success');
+
+    const nombre = document.getElementById('nombre');
+    const correo = document.getElementById('correo');
+    const telefono = document.getElementById('telefono');
+    const codigoPais = document.getElementById('codigoPais');
+    const politica = document.getElementById('politica');
+
+    const errNombre = document.getElementById('err-nombre');
+    const errCorreo = document.getElementById('err-correo');
+    const errPolitica = document.getElementById('err-politica');
+
+    function validate(){
+      let ok = true;
+
+      if(!nombre.value.trim()){
+        errNombre.classList.add('show'); ok = false;
+      } else { errNombre.classList.remove('show'); }
+
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo.value.trim());
+      if(!emailOk){
+        errCorreo.classList.add('show'); ok = false;
+      } else { errCorreo.classList.remove('show'); }
+
+      if(!politica.checked){
+        errPolitica.classList.add('show'); ok = false;
+      } else { errPolitica.classList.remove('show'); }
+
+      return ok;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if(!validate()) return;
+
+      submitBtn.disabled = true;
+      submitBtn.classList.add('loading');
+      submitLabel.textContent = 'ENVIANDO...';
+
+      const payload = {
+        nombre: nombre.value.trim(),
+        correo: correo.value.trim(),
+        codigoPais: codigoPais.value,
+        telefono: telefono.value.trim(),
+        aceptaPoliticas: politica.checked,
+        fecha: new Date().toISOString()
+      };
+
+      try {
+        if(SCRIPT_URL && SCRIPT_URL.startsWith('http')){
+          await fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors', // Apps Script Web Apps normalmente requieren no-cors
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        } else {
+          // SCRIPT_URL aún no configurado: simula el envío para poder probar la vista
+          await new Promise(res => setTimeout(res, 900));
+          console.log('Datos del formulario (SCRIPT_URL no configurado aún):', payload);
+        }
+
+        viewForm.classList.add('hidden');
+        viewSuccess.classList.remove('hidden');
+        window.scrollTo({top:0, behavior:'smooth'});
+
+      } catch(err) {
+        console.error('Error al enviar el formulario:', err);
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('loading');
+        submitLabel.textContent = 'ENVIAR';
+        alert('Hubo un problema al enviar tu información. Por favor intenta de nuevo.');
+      }
+    });
+  })();
+
+  // ---- Aviso legal / consentimiento de Términos y Condiciones ----
+  (function(){
+    const STORAGE_KEY = 'zentauruz_legal_consent_v1';
+
+    const overlay = document.getElementById('legalOverlay');
+    const viewNotice = document.getElementById('legalView-notice');
+    const viewDeclined = document.getElementById('legalView-declined');
+    const acceptBtn = document.getElementById('legalAccept');
+    const declineBtn = document.getElementById('legalDecline');
+    const reviewBtn = document.getElementById('legalReview');
+
+    function lockScroll(){ document.body.classList.add('legal-lock'); }
+    function unlockScroll(){ document.body.classList.remove('legal-lock'); }
+
+    function showOverlay(){
+      overlay.classList.add('show');
+      lockScroll();
+    }
+    function hideOverlay(){
+      overlay.classList.remove('show');
+      unlockScroll();
+    }
+
+    function showNoticeView(){
+      viewDeclined.classList.remove('show');
+      viewNotice.style.display = '';
+    }
+    function showDeclinedView(){
+      viewNotice.style.display = 'none';
+      viewDeclined.classList.add('show');
+    }
+
+    let stored = null;
+    try { stored = localStorage.getItem(STORAGE_KEY); } catch(e) { stored = null; }
+
+    if(stored === 'accepted'){
+      // ya había aceptado antes: navega libremente, sin overlay
+      hideOverlay();
+    } else {
+      // primera visita o no había decidido aún: se muestra el aviso y se oscurece el fondo
+      showNoticeView();
+      showOverlay();
+    }
+
+    acceptBtn.addEventListener('click', () => {
+      try { localStorage.setItem(STORAGE_KEY, 'accepted'); } catch(e) {}
+      hideOverlay();
+    });
+
+    declineBtn.addEventListener('click', () => {
+      try { localStorage.setItem(STORAGE_KEY, 'declined'); } catch(e) {}
+      showDeclinedView();
+      // el overlay permanece visible: sin aceptar, no se navega el contenido
+    });
+
+    reviewBtn.addEventListener('click', () => {
+      showNoticeView();
+    });
+  })();
+</script>
+</body>
+</html>
